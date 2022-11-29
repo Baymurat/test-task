@@ -3,6 +3,7 @@ import { Comment as CommentType, InputComment } from '../../../types/interfaces'
 import styles from './style.module.scss'
 import { Button } from '@mui/material'
 import AddComment from '../AddComment'
+import { RxAvatar } from 'react-icons/rx'
 
 type Props = CommentType & { onReply: (replyTo: string, comment: InputComment) => void }
 
@@ -19,7 +20,9 @@ const Comment: FC<Props> = ({
   return (
     <div className={styles.container}>
       <div className={styles.left}>
-        <div className={styles.avatar}></div>
+        <div className={styles.avatar}>
+          <RxAvatar />
+        </div>
         <div className={styles.verticalLine}></div>
       </div>
       <div className={styles.right}>
