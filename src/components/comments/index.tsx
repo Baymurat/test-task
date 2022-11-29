@@ -1,16 +1,29 @@
-import React, { FC, useState } from 'react'
-import DisplayComments from './DisplayComments'
+import React, { FC, useState, useEffect } from 'react'
+import DisplayComments from './display-comment'
 import AddComment from './AddComment'
 import styles from './style.module.scss'
-import { InputComment } from '../../types/interfaces'
-import { addComment, replyToComment } from '../../utils/api'
+import { Comment } from '../../types/interfaces'
+import { addComment, replyToComment, fetchComments } from '../../utils/api'
 
 interface Props {}
 
 const Comments: FC<Props> = (props) => {
+  const [comments, setComments] = useState<Comment[]>([])
+
+  useEffect(() => {
+    setComments(fetchComments(0, 20))
+  }, [])
+
   return (
     <div className={styles.container}>
-      <DisplayComments />
+      <DisplayComments
+        comments={comments}
+        onReply={(replyTo, comment) => {
+          replyToComment(replyTo, comment)
+            .then(() => {})
+            .catch(() => {})
+        }}
+      />
       <AddComment
         onSubmit={(comment) => {
           addComment(comment)

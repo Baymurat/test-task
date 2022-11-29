@@ -5,7 +5,7 @@ const getRandomInRange = (from: number, to: number): number => {
   return Math.round(Math.random() * (to - from) + from)
 }
 
-const buildSaveComments = (): SaveCommentReturnType => {
+const buildCommentsApi = (): SaveCommentReturnType => {
   const commentsString: string = localStorage.getItem('comments') ?? '[]'
   const comments: Comment[] = JSON.parse(commentsString)
   const allComments: CommentsMap = comments.reduce(function toMap (acc: CommentsMap, current) {
@@ -27,10 +27,14 @@ const buildSaveComments = (): SaveCommentReturnType => {
     return comments
   }
 
-  return [saveComment, replyComment]
+  const getComments = (skip: number, count: number): Comment[] => {
+    return comments.slice(skip, skip + count)
+  }
+
+  return [saveComment, replyComment, getComments]
 }
 
-const [saveComment, replyComment] = buildSaveComments()
+const [saveComment, replyComment, getComments] = buildCommentsApi()
 
 export const addComment = async (inputComment: InputComment): Promise<boolean> => {
   return await new Promise((resolve, reject) => {
@@ -61,4 +65,8 @@ export const replyToComment = async (replyTo: string, inputComment: InputComment
       resolve(true)
     }, randomTime)
   })
+}
+
+export const fetchComments = (skip: number, count: number): Comment[] => {
+  return getComments(skip, count)
 }

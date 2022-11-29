@@ -12,6 +12,7 @@ export interface Comment extends InputComment {
 export type SaveCommentReturnType = [
   (newComment: Comment) => Comment[],
   (replyTo: string, newComment: Comment) => Comment[],
+  (skip: number, count: number) => Comment[]
 ]
 
 export interface CommentsMap { [key: string]: Comment }
