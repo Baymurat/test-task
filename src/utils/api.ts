@@ -1,11 +1,11 @@
-import { Comment, InputComment, SaveCommentReturnType, CommentsMap } from '@custom-types/interfaces'
+import { Comment, InputComment, CommentApiBuildReturnType, CommentsMap, CommentsResponse } from '@custom-types/interfaces'
 import { v4 as uuidv4 } from 'uuid'
 
 const getRandomInRange = (from: number, to: number): number => {
   return Math.round(Math.random() * (to - from) + from)
 }
 
-const buildCommentsApi = (): SaveCommentReturnType => {
+const buildCommentsApi = (): CommentApiBuildReturnType => {
   const commentsString: string = localStorage.getItem('comments') ?? '[]'
   const comments: Comment[] = JSON.parse(commentsString)
   const allComments: CommentsMap = comments.reduce(function toMap (acc: CommentsMap, current) {
@@ -28,8 +28,11 @@ const buildCommentsApi = (): SaveCommentReturnType => {
     return comments
   }
 
-  const getComments = (skip: number, count: number): Comment[] => {
-    return comments.slice(skip, skip + count)
+  const getComments = (skip: number, count: number): CommentsResponse => {
+    return {
+      data: comments.slice(skip, skip + count),
+      count: comments.length
+    }
   }
 
   return [saveComment, replyComment, getComments]
@@ -66,6 +69,6 @@ export const replyToComment = async (replyTo: string, inputComment: InputComment
   })
 }
 
-export const fetchComments = (skip: number, count: number): Comment[] => {
-  return getComments(skip, count)
+export const fetchComments = async (skip: number, count: number): Promise<CommentsResponse> => {
+  return await Promise.resolve(getComments(skip, count))
 }

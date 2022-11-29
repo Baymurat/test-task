@@ -5,13 +5,25 @@ import { Button } from '@mui/material'
 import AddComment from '@components/comments/add-comment'
 import { RxAvatar, RxCross2 } from 'react-icons/rx'
 import { useClickOutside } from '@utils/helpers'
+import DisplayComments from '@components/comments/display-comment'
 
-type Props = CommentType & { onReply: (replyTo: string, comment: InputComment) => void }
+type Props = CommentType & {
+  onReply: (replyTo: string, comment: InputComment) => void
+  level: number
+}
+
+const maxAllowed: { [key: number]: number } = {
+  1: 10,
+  2: 7,
+  3: 5,
+  4: 3
+}
 
 const Comment: FC<Props> = ({
   text,
   email,
   id,
+  level,
   name,
   replies,
   onReply
@@ -22,6 +34,31 @@ const Comment: FC<Props> = ({
     setFormRef(element)
   }, [])
   const [startListen, stopListen] = useClickOutside(formRef, () => setShowForm(false))
+
+  const [showReplies, setShowReplies] = useState<CommentType[]>([])
+  const [hasMore, setHasMore] = useState<boolean>(false)
+  const [skip, setSkip] = useState<number>(0)
+  const [loading, setLoading] = useState<boolean>(false)
+
+  const limit = maxAllowed[level]
+
+  useEffect(() => {
+    const repliesTemp = replies.slice(0, limit)
+    setShowReplies(repliesTemp)
+    setSkip(repliesTemp.length)
+    setHasMore(replies.length > repliesTemp.length)
+  }, [])
+
+  const loadMore = (): void => {
+    setLoading(true)
+    setTimeout(() => {
+      const repliesTemp = replies.slice(skip, skip + limit)
+      setShowReplies((prev) => [...prev, ...repliesTemp])
+      setSkip((prev) => prev + repliesTemp.length)
+      setHasMore(replies.length > (showReplies.length + repliesTemp.length))
+      setLoading(false)
+    }, 1000)
+  }
 
   useEffect(() => {
     if (showReplyForm) {
@@ -49,20 +86,19 @@ const Comment: FC<Props> = ({
           {text}
         </div>
         <div className={styles.footer}>
-          <Button
-            onClick={() => setShowForm((prev) => !prev)}
-          >
-            Reply
+          <Button onClick={() => setShowForm((prev) => !prev)} >
+            Reply {' '}{level}{' '}{limit}
           </Button>
         </div>
-          <div className={styles.replies}>
-          {replies.map((reply) => (
-            <Comment
-              key={reply.id}
-              onReply={onReply}
-              {...reply}
-            />
-          ))}
+        <div className={styles.replies}>
+          <DisplayComments
+            loading={loading}
+            hasMore={hasMore}
+            loadMore={loadMore}
+            level={level + 1 === 5 ? 1 : level + 1}
+            comments={showReplies}
+            onReply={onReply}
+          />
         </div>
       </div>
 

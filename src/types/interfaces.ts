@@ -9,10 +9,18 @@ export interface Comment extends InputComment {
   replies: Comment[]
 }
 
-export type SaveCommentReturnType = [
+export type CommentApiBuildReturnType = [
   (newComment: Comment) => Comment[],
   (replyTo: string, newComment: Comment) => Comment[],
-  (skip: number, count: number) => Comment[]
+  (skip: number, count: number) => CommentsResponse
 ]
 
 export interface CommentsMap { [key: string]: Comment }
+
+export interface Response<T> {
+  data: T
+}
+
+export interface CommentsResponse extends Response<Comment[]> {
+  count: number
+}
