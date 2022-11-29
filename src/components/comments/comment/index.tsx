@@ -11,29 +11,49 @@ const Comment: FC<Props> = ({
   email,
   id,
   name,
-  replies
+  replies,
+  onReply
 }) => {
-  const [isReplyHidden, setIsReplyHidden] = useState<boolean>(true)
+  const [showReplyForm, setShowForm] = useState<boolean>(true)
 
   return (
     <div className={styles.container}>
-      <div className={styles.header}>
-        {name}
+      <div className={styles.left}>
+        <div className={styles.avatar}></div>
+        <div className={styles.verticalLine}></div>
       </div>
-      <div className={styles.body}>
-        {comment}
+      <div className={styles.right}>
+        <div className={styles.header}>
+          {name}
+        </div>
+        <div className={styles.body}>
+          {comment}
+        </div>
+        <div className={styles.footer}>
+          <Button
+            onClick={() => setShowForm((prev) => !prev)}
+          >
+            Reply
+          </Button>
+        </div>
+          <div className={styles.replies}>
+          {replies.map((reply) => (
+            <Comment
+              key={reply.id}
+              onReply={onReply}
+              {...reply}
+            />
+          ))}
+        </div>
       </div>
-      <div className={styles.footer}>
-        <Button
-          onClick={() => setIsReplyHidden((prev) => !prev)}
-        >
-          Reply
-        </Button>
-      </div>
-      {!isReplyHidden && (
-        <AddComment onSubmit={(comment) => {
 
-        }} />
+      {!showReplyForm && (
+        <div className={styles.replyForm}>
+          <AddComment onSubmit={(comment) => {
+            onReply(id, comment)
+            setShowForm(true)
+          }} />
+        </div>
       )}
     </div>
   )

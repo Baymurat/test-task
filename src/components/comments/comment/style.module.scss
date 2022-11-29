@@ -1,14 +1,58 @@
 .container {
+  padding: 0.7em 0.5em 0;
+  position: relative;
   width: 100%;
-  .header {
+  display: flex;
 
+  .left {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.35em;
+
+    .avatar {
+      flex-shrink: 0;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background-color: gray;
+    }
+
+    .verticalLine {
+      height: 100%;
+      width: 2px;
+      background-color: gray;
+    }
   }
 
-  .body {
+  .right {
+    padding: 0.2em 1em 0;
+    width: 100%;
 
+    .header {
+      padding: 0.2em 0;
+    }
+  
+    .body {
+      padding: 0.2em 0;
+    }
+  
+    .footer {
+  
+    }
+
+    .replies {
+      // width: 100%;
+    }
   }
 
-  .footer {
-
+  .replyForm {
+    position: absolute;
+    background: #fff;
+    left: 10%;
+    top: 100%;
+    width: 80%;
+    z-index: 1;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   }
 }

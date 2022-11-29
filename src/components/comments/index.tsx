@@ -20,14 +20,18 @@ const Comments: FC<Props> = (props) => {
         comments={comments}
         onReply={(replyTo, comment) => {
           replyToComment(replyTo, comment)
-            .then(() => {})
+            .then((comments) => {
+              setComments(() => [...comments])
+            })
             .catch(() => {})
         }}
       />
       <AddComment
         onSubmit={(comment) => {
           addComment(comment)
-            .then(() => {})
+            .then((comments) => {
+              setComments(comments)
+            })
             .catch(() => {})
         }}
       />

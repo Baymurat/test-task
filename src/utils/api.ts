@@ -16,6 +16,7 @@ const buildCommentsApi = (): SaveCommentReturnType => {
 
   const saveComment = (newComment: Comment): Comment[] => {
     comments.push(newComment)
+    allComments[newComment.id] = newComment
     localStorage.setItem('comments', JSON.stringify(comments))
     return comments
   }
@@ -36,7 +37,7 @@ const buildCommentsApi = (): SaveCommentReturnType => {
 
 const [saveComment, replyComment, getComments] = buildCommentsApi()
 
-export const addComment = async (inputComment: InputComment): Promise<boolean> => {
+export const addComment = async (inputComment: InputComment): Promise<Comment[]> => {
   return await new Promise((resolve, reject) => {
     const randomTime = getRandomInRange(1000, 2000)
     const comment: Comment = {
@@ -46,13 +47,12 @@ export const addComment = async (inputComment: InputComment): Promise<boolean> =
     }
 
     setTimeout(() => {
-      saveComment(comment)
-      resolve(true)
+      resolve(saveComment(comment))
     }, randomTime)
   })
 }
 
-export const replyToComment = async (replyTo: string, inputComment: InputComment): Promise<boolean> => {
+export const replyToComment = async (replyTo: string, inputComment: InputComment): Promise<Comment[]> => {
   return await new Promise((resolve, reject) => {
     const randomTime = getRandomInRange(1000, 2000)
     const comment: Comment = {
@@ -61,8 +61,7 @@ export const replyToComment = async (replyTo: string, inputComment: InputComment
       replies: []
     }
     setTimeout(() => {
-      replyComment(replyTo, comment)
-      resolve(true)
+      resolve(replyComment(replyTo, comment))
     }, randomTime)
   })
 }
