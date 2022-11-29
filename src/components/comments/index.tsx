@@ -1,9 +1,9 @@
 import React, { FC, useState, useEffect } from 'react'
-import DisplayComments from './display-comment'
-import AddComment from './add-comment'
+import DisplayComments from '@components/comments/display-comment'
+import AddComment from '@components/comments/add-comment'
+import { Comment } from '@custom-types/interfaces'
+import { addComment, replyToComment, fetchComments } from '@utils/api'
 import styles from './style.module.scss'
-import { Comment } from '../../types/interfaces'
-import { addComment, replyToComment, fetchComments } from '../../utils/api'
 
 const Comments: FC = () => {
   const [comments, setComments] = useState<Comment[]>([])

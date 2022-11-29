@@ -12,7 +12,12 @@ module.exports = (env) => {
       })
     ],
     resolve: {
-      extensions: ['.ts', '.js', '.tsx', '.jsx']
+      extensions: ['.ts', '.js', '.tsx', '.jsx'],
+      alias: {
+        '@components': path.resolve(__dirname, './src/components/'),
+        '@custom-types': path.resolve(__dirname, './src/types/'),
+        '@utils': path.resolve(__dirname, './src/utils/')
+      }
     },
     output: {
       filename: '[name].js',

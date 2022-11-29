@@ -1,6 +1,6 @@
 import React, { FC } from 'react'
-import { Comment as CommentType, InputComment } from '../../../types/interfaces'
-import Comment from '../../comments/comment'
+import { Comment as CommentType, InputComment } from '@custom-types/interfaces'
+import Comment from '@components/comments/comment'
 import styles from './style.module.scss'
 
 interface Props {

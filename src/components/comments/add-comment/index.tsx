@@ -2,7 +2,7 @@ import React, { FC, useState } from 'react'
 import TextField from '@mui/material/TextField'
 import styles from './style.module.scss'
 import Button from '@mui/material/Button'
-import { InputComment } from '../../../types/interfaces'
+import { InputComment } from '@custom-types/interfaces'
 
 interface Props {
   onSubmit: (comment: InputComment) => void

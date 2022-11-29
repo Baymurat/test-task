@@ -1,10 +1,10 @@
 import React, { FC, useState, useEffect, useCallback } from 'react'
-import { Comment as CommentType, InputComment } from '../../../types/interfaces'
+import { Comment as CommentType, InputComment } from '@custom-types/interfaces'
 import styles from './style.module.scss'
 import { Button } from '@mui/material'
-import AddComment from '../add-comment'
+import AddComment from '@components/comments/add-comment'
 import { RxAvatar, RxCross2 } from 'react-icons/rx'
-import { useClickOutside } from '../../../utils/helpers'
+import { useClickOutside } from '@utils/helpers'
 
 type Props = CommentType & { onReply: (replyTo: string, comment: InputComment) => void }
 
@@ -71,7 +71,7 @@ const Comment: FC<Props> = ({
           <RxCross2 onClick={() => setShowForm(false)} />
           <AddComment onSubmit={(comment) => {
             onReply(id, comment)
-            setShowForm(true)
+            setShowForm(false)
           }} />
         </div>
       )}

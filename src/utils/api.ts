@@ -1,4 +1,4 @@
-import { Comment, InputComment, SaveCommentReturnType, CommentsMap } from '../types/interfaces'
+import { Comment, InputComment, SaveCommentReturnType, CommentsMap } from '@custom-types/interfaces'
 import { v4 as uuidv4 } from 'uuid'
 
 const getRandomInRange = (from: number, to: number): number => {
