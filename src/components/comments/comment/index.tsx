@@ -1,9 +1,10 @@
-import React, { FC, useState } from 'react'
+import React, { FC, useState, useEffect, useCallback } from 'react'
 import { Comment as CommentType, InputComment } from '../../../types/interfaces'
 import styles from './style.module.scss'
 import { Button } from '@mui/material'
 import AddComment from '../AddComment'
-import { RxAvatar } from 'react-icons/rx'
+import { RxAvatar, RxCross2 } from 'react-icons/rx'
+import { useClickOutside } from '../../../utils/helpers'
 
 type Props = CommentType & { onReply: (replyTo: string, comment: InputComment) => void }
 
@@ -15,7 +16,22 @@ const Comment: FC<Props> = ({
   replies,
   onReply
 }) => {
-  const [showReplyForm, setShowForm] = useState<boolean>(true)
+  const [showReplyForm, setShowForm] = useState<boolean>(false)
+  const [formRef, setFormRef] = useState<HTMLDivElement | null>(null)
+  const getDivRef = useCallback((element: any) => {
+    setFormRef(element)
+  }, [])
+  const [startListen, stopListen] = useClickOutside(formRef, () => setShowForm(false))
+
+  useEffect(() => {
+    if (showReplyForm) {
+      setTimeout(() => {
+        startListen()
+      }, 100)
+    }
+
+    return () => stopListen()
+  }, [showReplyForm, formRef])
 
   return (
     <div className={styles.container}>
@@ -50,8 +66,9 @@ const Comment: FC<Props> = ({
         </div>
       </div>
 
-      {!showReplyForm && (
-        <div className={styles.replyForm}>
+      {showReplyForm && (
+        <div ref={getDivRef} className={styles.replyForm}>
+          <RxCross2 onClick={() => setShowForm(false)} />
           <AddComment onSubmit={(comment) => {
             onReply(id, comment)
             setShowForm(true)
