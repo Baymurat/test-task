@@ -1,9 +1,9 @@
 import React, { FC } from 'react'
-
+import Comments from './components/comments'
 const App: FC = () => {
   return (
     <div>
-      App
+      <Comments />
     </div>
   )
 }
