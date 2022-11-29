@@ -47,7 +47,14 @@
     }
 
     .replies {
+      // padding-top: 1em;
+      position: relative;
+    }
 
+    .level5 {
+      left: -300px;
+      padding-top: 1em;
+      background: #fff;
     }
   }
 
@@ -57,9 +64,10 @@
     flex-direction: column;
     align-items: flex-end;
     background: #fff;
-    left: 10%;
+    left: 70px;
     top: 100px;
-    width: 80%;
+    min-width: 400px;
+    max-width: 700px;
     z-index: 1;
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 

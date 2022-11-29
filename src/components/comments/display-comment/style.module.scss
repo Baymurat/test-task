@@ -1,8 +1,32 @@
 .container {
   width: 100%;
   background-color: #fff;
+  min-width: 300px;
   position: relative;
-  // padding: 1em 1em;
-  // height: 80vh;
-  // overflow-y: scroll;
+}
+
+.level5 {
+  position: relative;
+  // border-bottom: 1px solid;
+
+  &::before {
+    content: "";
+    position: absolute;
+    width: 90%;
+    left: 35px;
+    height: 6px;
+    border-top: 2px solid gray;
+    border-left: 2px solid gray;
+  }
+
+  &::after {
+    content: "";
+    position: absolute;
+    width: 90%;
+    left: 32px;
+    height: 2px;
+    border-bottom: 2px solid gray;
+    border-left: 2px solid gray;
+    background: #fff;
+  }
 }

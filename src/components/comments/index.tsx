@@ -10,6 +10,7 @@ const Comments: FC = () => {
   const [hasMore, setHasMore] = useState<boolean>(false)
   const [skip, setSkip] = useState<number>(0)
   const [loading, setLoading] = useState<boolean>(false)
+  const [, forceUpdate] = useState<number>(0)
 
   useEffect(() => {
     setLoading(true)
@@ -51,7 +52,10 @@ const Comments: FC = () => {
           onReply={(replyTo, comment) => {
             replyToComment(replyTo, comment)
               .then((comments) => {
+                console.log(comments)
+
                 setComments(() => [...comments])
+                forceUpdate((prev) => prev + 1)
               })
               .catch((err) => {
                 console.error(err)

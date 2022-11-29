@@ -13,7 +13,7 @@ const ShowMore: FC<Props> = ({ loadMore, loading }) => {
       <LoadingButton
         onClick={loadMore}
         loading={loading}
-        variant="outlined"
+        variant="contained"
       >
         Load more
       </LoadingButton>

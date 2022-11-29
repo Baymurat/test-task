@@ -6,6 +6,7 @@ import AddComment from '@components/comments/add-comment'
 import { RxAvatar, RxCross2 } from 'react-icons/rx'
 import { useClickOutside } from '@utils/helpers'
 import DisplayComments from '@components/comments/display-comment'
+import cx from 'classnames'
 
 type Props = CommentType & {
   onReply: (replyTo: string, comment: InputComment) => void
@@ -16,7 +17,9 @@ const maxAllowed: { [key: number]: number } = {
   1: 10,
   2: 7,
   3: 5,
-  4: 3
+  4: 3,
+  5: 3,
+  6: 3
 }
 
 const Comment: FC<Props> = ({
@@ -41,6 +44,7 @@ const Comment: FC<Props> = ({
   const [loading, setLoading] = useState<boolean>(false)
 
   const limit = maxAllowed[level]
+  const nextLevel = level + 1 === 7 ? 3 : level + 1
 
   useEffect(() => {
     const repliesTemp = replies.slice(0, limit)
@@ -87,15 +91,15 @@ const Comment: FC<Props> = ({
         </div>
         <div className={styles.footer}>
           <Button onClick={() => setShowForm((prev) => !prev)} >
-            Reply {' '}{level}{' '}{limit}
+            Reply
           </Button>
         </div>
-        <div className={styles.replies}>
+        <div className={cx(styles.replies, { [styles.level5]: nextLevel === 6 && showReplies.length !== 0 })}>
           <DisplayComments
             loading={loading}
             hasMore={hasMore}
             loadMore={loadMore}
-            level={level + 1 === 5 ? 1 : level + 1}
+            level={nextLevel}
             comments={showReplies}
             onReply={onReply}
           />
