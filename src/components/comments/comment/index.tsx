@@ -2,14 +2,14 @@ import React, { FC, useState, useEffect, useCallback } from 'react'
 import { Comment as CommentType, InputComment } from '../../../types/interfaces'
 import styles from './style.module.scss'
 import { Button } from '@mui/material'
-import AddComment from '../AddComment'
+import AddComment from '../add-comment'
 import { RxAvatar, RxCross2 } from 'react-icons/rx'
 import { useClickOutside } from '../../../utils/helpers'
 
 type Props = CommentType & { onReply: (replyTo: string, comment: InputComment) => void }
 
 const Comment: FC<Props> = ({
-  comment,
+  text,
   email,
   id,
   name,
@@ -46,7 +46,7 @@ const Comment: FC<Props> = ({
           {name}
         </div>
         <div className={styles.body}>
-          {comment}
+          {text}
         </div>
         <div className={styles.footer}>
           <Button

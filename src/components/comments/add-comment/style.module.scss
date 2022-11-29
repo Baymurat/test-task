@@ -1,0 +1,31 @@
+.container {
+  // background-color: gray;
+  width: 100%;
+  padding: 1rem 1rem;
+
+  .nameField {
+    width: 50%;
+    padding: 0.5em 0.5em;
+  }
+
+  .emailField {
+    width: 50%;
+    padding: 0.5em 0.5em;
+  }
+
+  .submitBlock {
+    position: relative;
+
+    .commentField {
+      width: 100%;
+      padding: 0.5em 0.5em;
+    }
+
+    button {
+      position: absolute;
+      top: 20%;
+      right: 3%;
+    }
+  }
+
+}

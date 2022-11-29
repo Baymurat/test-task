@@ -1,13 +1,11 @@
 import React, { FC, useState, useEffect } from 'react'
 import DisplayComments from './display-comment'
-import AddComment from './AddComment'
+import AddComment from './add-comment'
 import styles from './style.module.scss'
 import { Comment } from '../../types/interfaces'
 import { addComment, replyToComment, fetchComments } from '../../utils/api'
 
-interface Props {}
-
-const Comments: FC<Props> = (props) => {
+const Comments: FC = () => {
   const [comments, setComments] = useState<Comment[]>([])
 
   useEffect(() => {

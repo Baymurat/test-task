@@ -1,7 +1,7 @@
 export interface InputComment {
   name: string
   email: string
-  comment: string
+  text: string
 }
 
 export interface Comment extends InputComment {
