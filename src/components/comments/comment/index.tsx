@@ -22,6 +22,15 @@ const maxAllowed: { [key: number]: number } = {
   6: 3
 }
 
+const getNextLevel: { [key: number]: number } = {
+  1: 2,
+  2: 3,
+  3: 4,
+  4: 5,
+  5: 6,
+  6: 3
+}
+
 const Comment: FC<Props> = ({
   text,
   email,
@@ -42,7 +51,7 @@ const Comment: FC<Props> = ({
   const [loading, setLoading] = useState<boolean>(false)
 
   const limit = maxAllowed[level]
-  const nextLevel = level + 1 === 7 ? 3 : level + 1
+  const nextLevel = getNextLevel[level]
 
   useEffect(() => {
     const repliesTemp = replies.slice(0, limit)
@@ -50,6 +59,12 @@ const Comment: FC<Props> = ({
     setSkip(repliesTemp.length)
     setHasMore(replies.length > repliesTemp.length)
   }, [])
+
+  useEffect(() => {
+    if (showReplies.length + 1 === replies.length) {
+      setShowReplies([...replies])
+    }
+  }, [replies.length])
 
   const loadMore = (): void => {
     setLoading(true)

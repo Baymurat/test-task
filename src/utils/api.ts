@@ -25,7 +25,7 @@ const buildCommentsApi = (): CommentApiBuildReturnType => {
     allComments[replyTo].replies.push(newComment)
     allComments[newComment.id] = newComment
     localStorage.setItem('comments', JSON.stringify(comments))
-    return comments
+    return [...comments]
   }
 
   const getComments = (skip: number, count: number): CommentsResponse => {
