@@ -80,6 +80,9 @@ const Comment: FC<Props> = ({
   useEffect(() => {
     if (showReplyForm && formRef !== null) {
       setTimeout(startListen, 100)
+      if (formRef.getBoundingClientRect().y > 640) {
+        formRef.scrollIntoView({ behavior: 'smooth', block: 'center' })
+      }
     }
 
     return () => stopListen()
