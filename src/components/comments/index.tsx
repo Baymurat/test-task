@@ -1,4 +1,4 @@
-import React, { FC, useState, useEffect } from 'react'
+import React, { FC, useState, useEffect, useRef } from 'react'
 import DisplayComments from '@components/comments/display-comment'
 import AddComment from '@components/comments/add-comment'
 import { Comment } from '@custom-types/interfaces'
@@ -10,6 +10,7 @@ const Comments: FC = () => {
   const [hasMore, setHasMore] = useState<boolean>(false)
   const [skip, setSkip] = useState<number>(0)
   const [loading, setLoading] = useState<boolean>(false)
+  const scrollDivRef = useRef<HTMLDivElement | null>(null)
 
   const fetchMoreComments = (): void => {
     setLoading(true)
@@ -29,6 +30,10 @@ const Comments: FC = () => {
     fetchMoreComments()
   }, [])
 
+  useEffect(() => {
+    scrollDivRef.current?.scrollIntoView({ behavior: 'smooth' })
+  }, [comments.length])
+
   return (
     <div className={styles.container}>
       <div className={styles.commentsSection}>
@@ -41,7 +46,6 @@ const Comments: FC = () => {
           onReply={(replyTo, comment) => {
             replyToComment(replyTo, comment)
               .then((comments) => {
-                console.log(comments)
                 setComments([...comments])
               })
               .catch((err) => {
@@ -49,6 +53,7 @@ const Comments: FC = () => {
               })
           }}
         />
+        <div style={{ float: 'left', clear: 'both' }} ref={scrollDivRef}></div>
       </div>
       <AddComment
         onSubmit={(comment) => {
