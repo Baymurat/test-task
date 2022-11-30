@@ -42,6 +42,7 @@ const [saveComment, replyComment, getComments] = buildCommentsApi()
 
 export const addComment = async (inputComment: InputComment): Promise<Comment[]> => {
   return await new Promise((resolve, reject) => {
+    // Mock network delay
     const randomTime = getRandomInRange(1000, 2000)
     const comment: Comment = {
       ...inputComment,
@@ -57,6 +58,7 @@ export const addComment = async (inputComment: InputComment): Promise<Comment[]>
 
 export const replyToComment = async (replyTo: string, inputComment: InputComment): Promise<Comment[]> => {
   return await new Promise((resolve, reject) => {
+    // Mock network delay
     const randomTime = getRandomInRange(1000, 2000)
     const comment: Comment = {
       ...inputComment,
