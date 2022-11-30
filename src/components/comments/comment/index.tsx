@@ -33,10 +33,8 @@ const Comment: FC<Props> = ({
 }) => {
   const [showReplyForm, setShowForm] = useState<boolean>(false)
   const [formRef, setFormRef] = useState<HTMLDivElement | null>(null)
-  const getDivRef = useCallback((element: any) => {
-    setFormRef(element)
-  }, [])
   const [startListen, stopListen] = useClickOutside(formRef, () => setShowForm(false))
+  const getDivRef = useCallback((element: any) => setFormRef(element), [])
 
   const [showReplies, setShowReplies] = useState<CommentType[]>([])
   const [hasMore, setHasMore] = useState<boolean>(false)

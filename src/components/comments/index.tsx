@@ -12,27 +12,13 @@ const Comments: FC = () => {
   const [loading, setLoading] = useState<boolean>(false)
   const [, forceUpdate] = useState<number>(0)
 
-  useEffect(() => {
-    setLoading(true)
-    fetchComments(skip, 20)
-      .then(({ data, count }) => {
-        setComments(data)
-        setSkip(data.length)
-        setHasMore(count > data.length)
-        setLoading(false)
-      })
-      .catch((err) => {
-        console.error(err)
-      })
-  }, [])
-
-  const loadMore = (): void => {
+  const fetchMoreComments = (): void => {
     setLoading(true)
     fetchComments(skip, 20)
       .then(({ data, count }) => {
         setComments((prev) => [...prev, ...data])
-        setSkip((prev) => prev + data.length)
         setHasMore(count > skip + data.length)
+        setSkip((prev) => prev + data.length)
         setLoading(false)
       })
       .catch((err) => {
@@ -40,13 +26,17 @@ const Comments: FC = () => {
       })
   }
 
+  useEffect(() => {
+    fetchMoreComments()
+  }, [])
+
   return (
     <div className={styles.container}>
       <div className={styles.commentsSection}>
         <DisplayComments
           loading={loading}
           hasMore={hasMore}
-          loadMore={loadMore}
+          loadMore={fetchMoreComments}
           level={1}
           comments={comments}
           onReply={(replyTo, comment) => {
