@@ -78,10 +78,8 @@ const Comment: FC<Props> = ({
   }
 
   useEffect(() => {
-    if (showReplyForm) {
-      setTimeout(() => {
-        startListen()
-      }, 100)
+    if (showReplyForm && formRef !== null) {
+      setTimeout(startListen, 100)
     }
 
     return () => stopListen()
