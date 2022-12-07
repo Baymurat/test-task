@@ -24,7 +24,7 @@ const resolver: Resolver<FormValues> = yupResolver(
     text: yup.string().trim().required()
   }).required())
 
-const AddComment: FC<Props> = ({ onSubmit }) => {
+const CommentForm: FC<Props> = ({ onSubmit }) => {
   const { register, handleSubmit, formState: { errors }, reset } = useForm<FormValues>({ resolver })
 
   const submitForm = handleSubmit(({ name, email, text }) => {
@@ -73,4 +73,4 @@ const AddComment: FC<Props> = ({ onSubmit }) => {
   )
 }
 
-export default AddComment
+export default CommentForm

@@ -1,6 +1,6 @@
 import React, { FC, useState, useEffect, useRef } from 'react'
-import DisplayComments from '@components/comments/display-comment'
-import AddComment from '@components/comments/add-comment'
+import CommentsList from '@components/comments-list'
+import CommentForm from '@components/comment-form'
 import { Comment } from '@custom-types/interfaces'
 import { addComment, replyToComment, fetchComments } from '@utils/api'
 import styles from './style.module.scss'
@@ -37,7 +37,7 @@ const Comments: FC = () => {
   return (
     <div className={styles.container}>
       <div className={styles.commentsSection}>
-        <DisplayComments
+        <CommentsList
           loading={loading}
           hasMore={hasMore}
           loadMore={fetchMoreComments}
@@ -55,7 +55,7 @@ const Comments: FC = () => {
         />
         <div style={{ float: 'left', clear: 'both' }} ref={scrollDivRef}></div>
       </div>
-      <AddComment
+      <CommentForm
         onSubmit={(comment) => {
           addComment(comment)
             .then((comments) => {

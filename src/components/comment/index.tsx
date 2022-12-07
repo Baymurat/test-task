@@ -2,10 +2,10 @@ import React, { FC, useState, useEffect, useCallback } from 'react'
 import { Comment as CommentType, InputComment } from '@custom-types/interfaces'
 import styles from './style.module.scss'
 import { Button } from '@mui/material'
-import AddComment from '@components/comments/add-comment'
+import CommentForm from '@components/comment-form'
 import { RxAvatar, RxCross2 } from 'react-icons/rx'
 import { useClickOutside } from '@utils/helpers'
-import DisplayComments from '@components/comments/display-comment'
+import CommentsList from '@components/comments-list'
 import cx from 'classnames'
 
 type Props = CommentType & {
@@ -109,7 +109,7 @@ const Comment: FC<Props> = ({
           </Button>
         </div>
         <div className={cx(styles.replies, { [styles.level5]: nextLevel === 6 && showReplies.length !== 0 })}>
-          <DisplayComments
+          <CommentsList
             loading={loading}
             hasMore={hasMore}
             loadMore={loadMore}
@@ -123,7 +123,7 @@ const Comment: FC<Props> = ({
       {showReplyForm && (
         <div ref={getDivRef} className={styles.replyForm}>
           <RxCross2 onClick={() => setShowForm(false)} />
-          <AddComment onSubmit={(comment) => {
+          <CommentForm onSubmit={(comment) => {
             onReply(id, comment)
             setShowForm(false)
           }} />
