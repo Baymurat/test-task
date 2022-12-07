@@ -61,6 +61,8 @@
     "eslint-plugin-n": "^15.0.0",
     "eslint-plugin-promise": "^6.0.0",
     "eslint-plugin-react": "^7.31.11",
+    "eslint-plugin-simple-import-sort": "^8.0.0",
+    "eslint-plugin-typescript-sort-keys": "^2.1.0",
     "html-webpack-plugin": "^5.5.0",
     "react-icons": "^4.7.1",
     "sass": "^1.56.1",

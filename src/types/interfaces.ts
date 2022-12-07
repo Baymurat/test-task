@@ -1,6 +1,6 @@
 export interface InputComment {
-  name: string
-  email: string
+  email: string,
+  name: string,
   text: string
 }
 

@@ -1,19 +1,19 @@
-import { useCallback } from 'react'
+import { useCallback } from 'react';
 
 export const useClickOutside = (element: HTMLDivElement | null, onClick: () => void): any => {
   const listenOutsideClick = useCallback((event: MouseEvent): void => {
     if (element !== null && !element.contains(event.target as Node)) {
-      onClick()
+      onClick();
     }
-  }, [element])
+  }, [element]);
 
   const startListen = (): any => {
-    document.addEventListener('click', listenOutsideClick)
-  }
+    document.addEventListener('click', listenOutsideClick);
+  };
 
   const stopListen = (): any => {
-    document.removeEventListener('click', listenOutsideClick)
-  }
+    document.removeEventListener('click', listenOutsideClick);
+  };
 
-  return [startListen, stopListen]
-}
+  return [startListen, stopListen];
+};

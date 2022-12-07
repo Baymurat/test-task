@@ -1,0 +1,28 @@
+{
+  "extends": [
+    "plugin:typescript-sort-keys/recommended"
+  ],
+  "plugins": [
+    "simple-import-sort", 
+    "typescript-sort-keys"
+  ],
+  "parser": "@typescript-eslint/parser",
+  "overrides": [
+    {
+      "files": ["**/*.js", "**/*.ts", "**/*.tsx"],
+      "rules": {
+        "simple-import-sort/imports": ["error"]
+      },
+      "plugins": ["simple-import-sort"]
+    }
+  ],
+  "rules": {
+    "no-trailing-spaces": "error",
+    "simple-import-sort/imports": "error",
+    "simple-import-sort/exports": "error",
+    "import/newline-after-import": "error",
+    "indent": ["error", 2, { "SwitchCase": 1 }],
+    "arrow-body-style": ["error", "as-needed"],
+    "semi": ["error"]
+  }
+}

@@ -1,19 +1,20 @@
-import React, { FC } from 'react'
-import TextField from '@mui/material/TextField'
-import styles from './style.module.scss'
-import Button from '@mui/material/Button'
-import { InputComment } from '@custom-types/interfaces'
-import { useForm, Resolver } from 'react-hook-form'
-import { yupResolver } from '@hookform/resolvers/yup'
-import * as yup from 'yup'
+import { InputComment } from '@custom-types/interfaces';
+import { yupResolver } from '@hookform/resolvers/yup';
+import Button from '@mui/material/Button';
+import TextField from '@mui/material/TextField';
+import React, { FC } from 'react';
+import { Resolver,useForm } from 'react-hook-form';
+import * as yup from 'yup';
+
+import styles from './style.module.scss';
 
 interface Props {
   onSubmit: (comment: InputComment) => void
 }
 
 interface FormValues {
-  name: string
-  email: string
+  email: string,
+  name: string,
   text: string
 }
 
@@ -22,15 +23,15 @@ const resolver: Resolver<FormValues> = yupResolver(
     name: yup.string().trim().required(),
     email: yup.string().trim().required(),
     text: yup.string().trim().required()
-  }).required())
+  }).required());
 
 const CommentForm: FC<Props> = ({ onSubmit }) => {
-  const { register, handleSubmit, formState: { errors }, reset } = useForm<FormValues>({ resolver })
+  const { register, handleSubmit, formState: { errors }, reset } = useForm<FormValues>({ resolver });
 
   const submitForm = handleSubmit(({ name, email, text }) => {
-    onSubmit({ name, email, text })
-    reset({ name: '', email: '', text: '' })
-  })
+    onSubmit({ name, email, text });
+    reset({ name: '', email: '', text: '' });
+  });
 
   return (
     <div className={styles.container}>
@@ -70,7 +71,7 @@ const CommentForm: FC<Props> = ({ onSubmit }) => {
         </Button>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default CommentForm
+export default CommentForm;

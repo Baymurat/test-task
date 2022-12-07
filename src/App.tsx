@@ -1,14 +1,14 @@
-import React, { FC } from 'react'
-import Comments from './components/comments-section'
-import styles from './App.module.scss'
-import './index.scss'
+import './index.scss';
 
-const App: FC = () => {
-  return (
-    <div className={styles.container}>
-      <Comments />
-    </div>
-  )
-}
+import React, { FC } from 'react';
 
-export default App
+import styles from './App.module.scss';
+import Comments from './components/comments-section';
+
+const App: FC = () => (
+  <div className={styles.container}>
+    <Comments />
+  </div>
+);
+
+export default App;
